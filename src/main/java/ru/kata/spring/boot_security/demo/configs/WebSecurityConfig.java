@@ -20,7 +20,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {//здесь мы пишем куда пользователю можно и нельзя
         http
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
