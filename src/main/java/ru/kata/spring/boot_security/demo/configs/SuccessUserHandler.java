@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Set;
 
 @Component
@@ -16,10 +17,15 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (roles.contains("ROLE_USER")) {
+
+        if (roles.contains("USER")) {
             httpServletResponse.sendRedirect("/user");
+        } else if (roles.contains("ADMIN")) {
+            httpServletResponse.sendRedirect("/admin");
         } else {
             httpServletResponse.sendRedirect("/");
         }
     }
+
+
 }

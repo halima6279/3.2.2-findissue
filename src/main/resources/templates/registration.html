@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<div>
+    <form th:action="@{/registration}" th:object="${userForm}" method="post">
+        <h2>Регистрация</h2>
+        <div>
+            <input type="text" th:field="*{username}" placeholder="Username" autofocus="true"/>
+            <!-- Отображение ошибок валидации для username -->
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            <!-- Отображение ошибки из модели -->
+            <div th:if="${usernameError}" th:text="${usernameError}"></div>
+        </div>
+        <div>
+            <input type="password" th:field="*{password}" placeholder="Password"/>
+        </div>
+        <div>
+            <input type="password" th:field="*{passwordConfirm}" placeholder="Confirm your password"/>
+            <!-- Отображение ошибок валидации для passwordConfirm -->
+            <div th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></div>
+            <!-- Отображение ошибки из модели -->
+            <div th:if="${passwordError}" th:text="${passwordError}"></div>
+        </div>
+        <div>
+            <label>Roles:</label>
+            <div th:each="role : ${allRoles}">
+                <input type="checkbox" th:field="*{roles}" th:value="${role.id}" />
+                <span th:text="${role.name}"></span>
+            </div>
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <a href="/" th:href="@{/}">Главная</a>
+</div>
+</body>
+</html>
